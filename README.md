@@ -1,0 +1,1 @@
+THis is my year-end final project, ZAR Trader, which provides users a chance to practice investing in real-time.
