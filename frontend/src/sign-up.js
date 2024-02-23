@@ -33,6 +33,10 @@ document.addEventListener('DOMContentLoaded', () => {
       .then((data) => {
         message.textContent = data.message;
         signupForm.reset();
+        // Redirect to sign-in page after delay
+        setTimeout(() => {
+          window.location.href = 'sign-in.html';
+        }, 2000);
       })
       .catch((error) => {
         message.textContent = error.message;

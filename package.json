@@ -19,6 +19,7 @@
         "express": "^4.18.2",
         "jsonwebtoken": "^8.5.1",
         "mongoose": "^6.12.6",
-        "morgan": "^1.10.0"
+        "morgan": "^1.10.0",
+        "yahoo-stock-api": "^2.2.1"
     }
 }

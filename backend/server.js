@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const path = require('path');
 const User = require('./models/user');
+const { getHistoricalPrices, getSymbolInfo } = require('./yahooAPI');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -15,7 +16,7 @@ mongoose.connect('mongodb://localhost:27017/zar-trader', { useNewUrlParser: true
 app.use(bodyParser.json());
 
 // serve static files
-app.use(express.static(path.join(__dirname, '../frontend/public')));
+app.use(express.static(path.join(__dirname, '../frontend')));
 
 // sign up
 app.post('/signup', async (req, res) => {
@@ -68,7 +69,29 @@ app.post('/signin', async (req, res) => {
   }
 });
 
+// Fetch historical prices
+app.get('/historical-prices/:symbol', async (req, res) => {
+  const { symbol } = req.params;
+  try {
+    const historicalPrices = await getHistoricalPrices(symbol);
+    res.json(historicalPrices);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Fetch stock symbol information
+app.get('/symbol/:symbol', async (req, res) => {
+  const { symbol } = req.params;
+  try {
+    const symbolInfo = await getSymbolInfo(symbol);
+    res.json(symbolInfo);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
-  console.log('Website redirect: http://localhost:3000/landing.html');
+  console.log('Website redirect: http://localhost:3000/public/landing.html');
 });

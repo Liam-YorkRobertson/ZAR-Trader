@@ -5,10 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>ZAR Trader</title>
-    <link rel="stylesheet" href="./styles/homepage.css">
+    <link rel="stylesheet" href="../styles/homepage.css">
+    <script src="https://cdn.anychart.com/releases/8.10.0/js/anychart-bundle.min.js"></script>
     <link rel="icon" href="./favicon.ico" type="image/x-icon">
   </head>
   <body>
-    <h1>I exist </h1>
+    <nav class="navbar">
+    </nav>
+    <main>
+      <h1>Stock</h1>
+      <div class="buttons">
+        <button id="jse-button">JSE</button>
+        <button id="add-stock-button">+</button>
+        <div id="stock-dropdown" class="dropdown-content">
+        </div>
+      </div>
+      <div id="chart-container" class="chart-container">
+      </div>
+    </main>
+    <script src="../src/homepage.js"></script>
   </body>
 </html>

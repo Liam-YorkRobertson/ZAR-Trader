@@ -15,6 +15,6 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-});
+}, { collection: 'user_profile_data' });
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model('user_profile_data', userSchema);
