@@ -57,8 +57,7 @@ app.post('/signin', async (req, res) => {
       return res.status(400).json({ error: 'User not found' });
     }
     // Validate password
-    const isValidPassword = await user.comparePassword(password);
-    if (!isValidPassword) {
+    if (user.password !== password) {
       return res.status(400).json({ error: 'Invalid password' });
     }
     // Send success response
