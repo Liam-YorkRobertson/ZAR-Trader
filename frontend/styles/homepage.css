@@ -6,7 +6,7 @@ body {
   }
   
   .navbar {
-    /* Navbar styles */
+    border-bottom: 1px solid black;
   }
   
   main {
@@ -52,6 +52,7 @@ body {
   }
   
   .chart-container {
-    /* Chart container styles */
-  }
-  
+    width: 100%;
+    height: 400px;
+}
+ 

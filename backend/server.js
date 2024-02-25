@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const path = require('path');
 const User = require('./models/user');
-const { getHistoricalPrices, getSymbolInfo } = require('./yahooAPI');
+const { getHistoricalPrices } = require('./yahooAPI');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -63,30 +63,22 @@ app.post('/signin', async (req, res) => {
     // Send success response
     res.status(200).json({ message: 'Sign-in successful' });
   } catch (error) {
+    2810;
     console.error('Error signing in:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
 
-// Fetch historical prices
+// Route for fetching historical prices
 app.get('/historical-prices/:symbol', async (req, res) => {
   const { symbol } = req.params;
   try {
+    // Fetch historical prices for the requested symbol
     const historicalPrices = await getHistoricalPrices(symbol);
     res.json(historicalPrices);
   } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
-
-// Fetch stock symbol information
-app.get('/symbol/:symbol', async (req, res) => {
-  const { symbol } = req.params;
-  try {
-    const symbolInfo = await getSymbolInfo(symbol);
-    res.json(symbolInfo);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error('Error fetching historical prices:', error);
+    res.status(500).json({ error: 'Internal server error' });
   }
 });
 

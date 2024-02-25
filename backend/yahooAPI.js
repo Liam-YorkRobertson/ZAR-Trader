@@ -6,30 +6,40 @@ const yahoo = new YahooStockAPI();
 
 async function getHistoricalPrices(symbol) {
   try {
-    const historicalPrices = await yahoo.getHistoricalPrices({
-      startDate: new Date('08/21/2020'),
-      endDate: new Date('08/26/2020'),
-      symbol,
-      frequency: '1d',
+    const today = new Date(); // Get today's date
+    const oneWeekAgo = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 7); // Set the date to one week ago
+
+    // Fetch historical prices from Yahoo Finance API for S&P 500
+    const response = await yahoo.getHistoricalPrices({
+      startDate: oneWeekAgo,
+      endDate: today,
+      symbol: '^GSPC', // Use the symbol for S&P 500 (^GSPC)
+      frequency: '1d', // Set frequency to "1d" for daily prices
     });
-    return historicalPrices;
+
+    console.log('Historical Prices:', response); // Log response
+
+    // Check if there is an error in the response
+    if (response.error) {
+      throw new Error(response.message); // Throw an error if there is an error in the response
+    }
+
+    // Extract historical prices array from the response
+    const historicalPrices = response.response;
+
+    // Format data for charting library
+    const formattedData = historicalPrices.map((price) => ({
+      x: new Date(price.date * 1000), // Convert Unix timestamp to JavaScript Date object
+      y: price.close, // Use closing price as the y-axis value
+    }));
+
+    return formattedData;
   } catch (error) {
     console.error('Error fetching historical prices:', error);
     throw new Error('Error fetching historical prices');
   }
 }
 
-async function getSymbolInfo(symbol) {
-  try {
-    const symbolInfo = await yahoo.getSymbol({ symbol });
-    return symbolInfo;
-  } catch (error) {
-    console.error('Error fetching symbol info:', error);
-    throw new Error('Error fetching symbol info');
-  }
-}
-
 module.exports = {
   getHistoricalPrices,
-  getSymbolInfo,
 };
