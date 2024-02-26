@@ -10,12 +10,42 @@
   <link rel="icon" href="./favicon.ico" type="image/x-icon">
 </head>
 <body>
-  <nav class="navbar">
-  </nav>
-  <main>
-    <h1>S&P 500 Historical Prices</h1>
-    <div class="chart-container" id="chart-container"></div>
-  </main>
+  <div id="controls">
+    <label for="stock-select">Select Stock:</label>
+    <select id="stock-dropdown">
+      <option value="MSFT">Microsoft Corporation</option>
+      <option value="AAPL">Apple Inc.</option>
+      <option value="NVDA">NVIDIA Corporation</option>
+      <option value="AMZN">Amazon.com, Inc.</option>
+      <option value="GOOG">Alphabet Inc.</option>
+      <option value="META">Meta Platforms, Inc.</option>
+      <option value="TSLA">Tesla, Inc.</option>
+      <option value="JPM">JPMorgan Chase & Co.</option>
+      <option value="XOM">Exxon Mobil Corporation</option>
+      <option value="JNJ">Johnson & Johnson</option>
+      <option value="PG">The Procter & Gamble Company</option>
+      <option value="HD">The Home Depot, Inc.</option>
+      <option value="AMD">Advanced Micro Devices, Inc.</option>
+      <option value="BAC">Bank of America Corporation</option>
+      <option value="KO">The Coca-Cola Company</option>
+      <option value="NFLX">Netflix, Inc.</option>
+      <option value="MCD">McDonald's Corporation</option>
+      <option value="DIS">The Walt Disney Company</option>
+      <option value="CSCO">Cisco Systems, Inc.</option>
+      <option value="BABA">Alibaba Group Holding Limited</option>
+      <option value="INTC">Intel Corporation</option>
+      <option value="IBM">International Business Machines Corporation</option>
+      <option value="GE">General Electric Company</option>
+      <option value="VZ">Verizon Communications Inc.</option>
+      <option value="WMT">Walmart Inc.</option>
+      <option value="PFE">Pfizer Inc.</option>
+      <option value="BA">The Boeing Company</option>
+      <option value="T">AT&T Inc.</option>
+      <option value="C">Citigroup Inc.</option>
+      <option value="F">Ford Motor Company</option>
+    </select>
+    <button onclick="handleSelect()">Select</button>
+    <div id="chart-container"></div>
   <script src="../src/homepage.js"></script>
 </body>
 </html>

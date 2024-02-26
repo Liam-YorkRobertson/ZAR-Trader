@@ -9,11 +9,11 @@ async function getHistoricalPrices(symbol) {
     const today = new Date(); // Get today's date
     const oneWeekAgo = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 7); // Set the date to one week ago
 
-    // Fetch historical prices from Yahoo Finance API for S&P 500
+    // Fetch historical prices from Yahoo Finance API for the specified symbol
     const response = await yahoo.getHistoricalPrices({
       startDate: oneWeekAgo,
       endDate: today,
-      symbol: '^GSPC', // Use the symbol for S&P 500 (^GSPC)
+      symbol: symbol, // Use the provided symbol
       frequency: '1d', // Set frequency to "1d" for daily prices
     });
 

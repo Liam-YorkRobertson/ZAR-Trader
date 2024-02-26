@@ -1,9 +1,19 @@
 document.addEventListener('DOMContentLoaded', async () => {
-  const chartContainer = document.getElementById('chart-container');
+  // Fetch historical prices for the selected stock on page load
+  const selectedStock = document.getElementById('stock-dropdown').value;
+  fetchAndRender(selectedStock);
+});
 
+// Function to handle stock selection from dropdown
+function handleSelect() {
+  const selectedStock = document.getElementById('stock-dropdown').value;
+  fetchAndRender(selectedStock);
+}
+
+// Function to fetch historical prices and render the graph
+async function fetchAndRender(symbol) {
   try {
-    // Fetch historical prices for S&P 500
-    const response = await fetch('/historical-prices/^GSPC');
+    const response = await fetch(`/historical-prices/${symbol}`);
 
     if (!response.ok) {
       throw new Error('Failed to fetch historical prices');
@@ -11,34 +21,44 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     const responseData = await response.json();
 
-    // Check if the response contains valid data
     if (!responseData || !Array.isArray(responseData)) {
       throw new Error('Invalid response format');
     }
 
-    console.log('Historical Prices:', responseData);
-
-    // Render the graph
     renderGraph(responseData);
   } catch (error) {
     console.error('Error fetching or processing historical prices:', error);
     alert('An error occurred while fetching historical prices. Please try again later.');
   }
-});
+}
 
 function renderGraph(data) {
   try {
-    // Extract x-axis labels (dates) and y-axis values (closing prices)
+    // Extract y-axis values (closing prices)
     const formattedData = data.map((price) => ({
-      x: price.x,
-      value: price.y
+      x: formatDayOfWeek(price.x), // Format x-axis label to display abbreviated day of the week
+      value: price.y,
     }));
+
+    // Reverse the order of the formatted data
+    formattedData.reverse();
 
     // Calculate the high and low of the week
     const values = formattedData.map((price) => price.value);
-    const high = Math.max(...values) + 10;
-    const low = Math.min(...values) - 10;
+    function calculatePercentile(data, percentile) {
+      const sortedData = data.slice().sort((a, b) => a - b);
+      const index = (percentile / 100) * (sortedData.length - 1);
+      return Number.isInteger(index)
+        ? sortedData[index]
+        : (sortedData[Math.floor(index)] + sortedData[Math.ceil(index)]) / 2;
+    }
 
+    const high = Math.ceil(calculatePercentile(values, 99) * 1.02);
+    const low = Math.floor(calculatePercentile(values, 1) * 0.98);
+    
+    const chartContainer = document.getElementById('chart-container');
+    chartContainer.innerHTML = ''; // Clear the chart container
+    
     // Configure and render the graph using AnyChart
     anychart.onDocumentReady(() => {
       const chart = anychart.line(); // Create a line chart
@@ -47,11 +67,22 @@ function renderGraph(data) {
       chart.data(formattedData);
 
       // Set chart title
-      chart.title('S&P 500 Historical Prices');
+      chart.title('Stock Prices');
 
-      // Set x-axis labels
-      chart.xAxis().labels().format(function() {
-        return this.value['x'];
+      // Set x-axis labels to display abbreviated days of the week
+      chart.xAxis().labels().format(function () {
+        return this.value;
+      });
+
+      // Set x-axis title
+      chart.xAxis().title('Time');
+
+      // Set y-axis title
+      chart.yAxis().title('Price');
+
+      // Set tooltip format
+      chart.tooltip().format(function () {
+        return `${this.value}`;
       });
 
       // Set y-axis scale
@@ -65,4 +96,11 @@ function renderGraph(data) {
     console.error('Error rendering graph:', error);
     alert('An error occurred while rendering the graph. Please try again later.');
   }
+}
+
+// Function to format the date as abbreviated day of the week
+function formatDayOfWeek(dateString) {
+  const date = new Date(dateString);
+  const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  return daysOfWeek[date.getDay()];
 }
