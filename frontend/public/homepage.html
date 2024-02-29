@@ -10,6 +10,16 @@
   <link rel="icon" href="./favicon.ico" type="image/x-icon">
 </head>
 <body>
+  <div>
+    <button onclick="openWallet()">Open Wallet</button>
+    <div id="wallet-container" class="hidden">
+      <h2>Wallet</h2>
+      <p id="wallet-value">Wallet: $0</p>
+      <input type="number" id="transaction-amount" placeholder="Enter amount (max $10,000)">
+      <button onclick="deposit()">Deposit</button>
+      <button onclick="withdraw()">Withdraw</button>
+    </div>
+  </div>
   <div id="controls">
     <label for="stock-select">Select Stock:</label>
     <select id="stock-dropdown">

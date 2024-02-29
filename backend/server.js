@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const path = require('path');
 const User = require('./models/user');
 const { getHistoricalPrices } = require('./yahooAPI');
+const UserWallet = require('./models/userWallet');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -35,6 +36,15 @@ app.post('/signup', async (req, res) => {
     // create new user
     const newUser = new User({ username, email, password });
     await newUser.save();
+
+    // Check if wallet entry already exists for the user's email
+    const existingWallet = await UserWallet.findOne({ email });
+    if (!existingWallet) {
+      // If no wallet entry exists, create a new one
+      const userWallet = new UserWallet({ email, wallet: 0 }); // Initialize wallet amount as 0
+      await userWallet.save();
+    }
+
     res.status(201).json({ message: 'Account created successfully' });
   } catch (error) {
     console.error('Error creating user:', error);
@@ -60,10 +70,9 @@ app.post('/signin', async (req, res) => {
     if (user.password !== password) {
       return res.status(400).json({ error: 'Invalid password' });
     }
-    // Send success response
-    res.status(200).json({ message: 'Sign-in successful' });
+    // Send success response with user's email
+    res.status(200).json({ message: 'Sign-in successful', email: user.email });
   } catch (error) {
-    2810;
     console.error('Error signing in:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
@@ -78,6 +87,66 @@ app.get('/historical-prices/:symbol', async (req, res) => {
     res.json(historicalPrices);
   } catch (error) {
     console.error('Error fetching historical prices:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Wallet
+// Endpoint to deposit into wallet
+app.get('/deposit', async (req, res) => {
+  const { email, amount } = req.query;
+  try {
+    // Find the user's wallet entry
+    const userWallet = await UserWallet.findOne({ email });
+    if (!userWallet) {
+      return res.status(404).json({ error: 'User not found or wallet does not exist' });
+    }
+    // Update user's wallet in the database
+    userWallet.wallet += parseInt(amount);
+    await userWallet.save();
+    res.status(200).json({ message: 'Deposit successful' });
+  } catch (error) {
+    console.error('Error depositing into wallet:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Endpoint to withdraw from wallet
+app.get('/withdraw', async (req, res) => {
+  const { email, amount } = req.query;
+  try {
+    // Find the user's wallet entry
+    const userWallet = await UserWallet.findOne({ email });
+    if (!userWallet) {
+      return res.status(404).json({ error: 'User not found or wallet does not exist' });
+    }
+    // Check if sufficient balance
+    if (userWallet.wallet < amount) {
+      return res.status(400).json({ error: 'Insufficient balance' });
+    }
+    // Update user's wallet in the database
+    userWallet.wallet -= parseInt(amount);
+    await userWallet.save();
+    res.status(200).json({ message: 'Withdrawal successful' });
+  } catch (error) {
+    console.error('Error withdrawing from wallet:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Endpoint to get wallet amount
+app.get('/get-wallet', async (req, res) => {
+  const { email } = req.query; // Use req.query to access query parameters
+  try {
+    // Retrieve user's wallet from the database
+    const userWallet = await UserWallet.findOne({ email });
+    if (userWallet) {
+      res.status(200).json({ wallet: userWallet.wallet });
+    } else {
+      res.status(200).json({ wallet: 0 });
+    }
+  } catch (error) {
+    console.error('Error fetching wallet amount:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 });

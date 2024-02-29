@@ -25,9 +25,17 @@ document.addEventListener('DOMContentLoaded', () => {
       });
 
       if (response.ok) {
+        const data = await response.json();
+        console.log('Response from server:', data);
+        if (data && data.email) {
+          // Save email to cache
+          localStorage.setItem('userEmail', data.email);
+          console.log('Email saved in localStorage:', data.email);
+        }
         window.location.href = 'homepage.html';
       } else {
         const data = await response.json();
+        console.log('Error response from server:', data);
         if (data && data.error) {
           alert(data.error);
         }

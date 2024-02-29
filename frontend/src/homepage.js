@@ -55,10 +55,10 @@ function renderGraph(data) {
 
     const high = Math.ceil(calculatePercentile(values, 99) * 1.02);
     const low = Math.floor(calculatePercentile(values, 1) * 0.98);
-    
+
     const chartContainer = document.getElementById('chart-container');
     chartContainer.innerHTML = ''; // Clear the chart container
-    
+
     // Configure and render the graph using AnyChart
     anychart.onDocumentReady(() => {
       const chart = anychart.line(); // Create a line chart
@@ -103,4 +103,85 @@ function formatDayOfWeek(dateString) {
   const date = new Date(dateString);
   const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   return daysOfWeek[date.getDay()];
+}
+
+// wallet functionality
+
+
+function openWallet() {
+  const walletContainer = document.getElementById('wallet-container');
+  walletContainer.classList.remove('hidden');
+  updateWallet(); // Update wallet amount when opening
+}
+
+function closeWallet() {
+  const walletContainer = document.getElementById('wallet-container');
+  walletContainer.classList.add('hidden');
+}
+
+async function updateWallet() {
+  try {
+    const userEmail = localStorage.getItem('userEmail'); // Retrieve user email from cache
+    if (!userEmail) {
+      alert('User email not found in cache. Please sign in again.');
+      return;
+    }
+    const response = await fetch(`/get-wallet?email=${userEmail}`, {
+      method: 'GET',
+    });
+    const data = await response.json();
+    const walletValue = document.getElementById('wallet-value');
+    walletValue.textContent = `Wallet: $${data.wallet}`;
+  } catch (error) {
+    console.error('Error updating wallet:', error);
+    alert('An error occurred while updating wallet amount. Please try again later.');
+  }
+}
+
+async function deposit() {
+  const amount = parseInt(document.getElementById('transaction-amount').value);
+  if (isNaN(amount) || amount <= 0 || amount > 10000) {
+    alert('Invalid amount! Please enter a valid amount.');
+    return;
+  }
+
+  try {
+    const email = localStorage.getItem('userEmail'); // Retrieve user's email from cache
+    const response = await fetch(`/deposit?email=${email}&amount=${amount}`, {
+      method: 'GET', // Change method to GET
+    });
+    if (response.ok) {
+      alert('Deposit successful!');
+      updateWallet();
+    } else {
+      alert('Deposit failed! Please try again.');
+    }
+  } catch (error) {
+    console.error('Error depositing:', error);
+    alert('An error occurred while depositing. Please try again later.');
+  }
+}
+
+async function withdraw() {
+  const amount = parseInt(document.getElementById('transaction-amount').value);
+  if (isNaN(amount) || amount <= 0 || amount > 10000) {
+    alert('Invalid amount! Please enter a valid amount.');
+    return;
+  }
+
+  try {
+    const email = localStorage.getItem('userEmail'); // Retrieve user's email from cache
+    const response = await fetch(`/withdraw?email=${email}&amount=${amount}`, {
+      method: 'GET', // Change method to GET
+    });
+    if (response.ok) {
+      alert('Withdrawal successful!');
+      updateWallet();
+    } else {
+      alert('Withdrawal failed! Please try again.');
+    }
+  } catch (error) {
+    console.error('Error withdrawing:', error);
+    alert('An error occurred while withdrawing. Please try again later.');
+  }
 }
