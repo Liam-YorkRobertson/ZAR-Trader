@@ -5,6 +5,7 @@ const path = require('path');
 const User = require('./models/user');
 const { getHistoricalPrices } = require('./yahooAPI');
 const UserWallet = require('./models/userWallet');
+const UserInvestment = require('./models/userInvestment');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -154,4 +155,104 @@ app.get('/get-wallet', async (req, res) => {
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
   console.log('Website redirect: http://localhost:3000/public/landing.html');
+});
+
+// Endpoint to fetch user investments
+app.get('/user-investments', async (req, res) => {
+  const { email } = req.query;
+  try {
+    // Fetch investments for the given user email
+    const userInvestments = await UserInvestment.find({ user_email: email });
+    if (userInvestments.length === 0) {
+      // If no investments found, return an empty array
+      return res.status(200).json([]);
+    }
+    res.status(200).json(userInvestments);
+  } catch (error) {
+    console.error('Error fetching user investments:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Buy endpoint
+app.post('/buy', async (req, res) => {
+  const {
+    user_email, stock_name, date_bought, price, stock_amount,
+  } = req.body;
+  try {
+    // Check if the user already has an investment for the given stock
+    const existingInvestment = await UserInvestment.findOne({ user_email, stock_name });
+
+    if (existingInvestment) {
+      // If the user already has an investment, update the stock amount
+      existingInvestment.stock_amount += stock_amount;
+      await existingInvestment.save();
+    } else {
+      // If the user does not have an investment, create a new investment
+      const newInvestment = new UserInvestment({
+        user_email,
+        stock_name,
+        date_bought,
+        price,
+        stock_amount,
+      });
+      await newInvestment.save();
+    }
+
+    // Return success response
+    res.status(200).json({ success: true, message: 'Stocks purchased successfully!' });
+  } catch (error) {
+    console.error('Error buying stocks:', error);
+    res.status(500).json({ success: false, message: 'Failed to buy stocks. Please try again later.' });
+  }
+});
+
+// Endpoint to update the wallet balance after a successful purchase
+app.post('/update-wallet', async (req, res) => {
+  const { email, totalCost } = req.body;
+  try {
+    // Fetch the user's wallet from the database
+    const userWallet = await UserWallet.findOne({ email });
+    if (!userWallet) {
+      throw new Error('User wallet not found');
+    }
+    
+    // Update the wallet balance by deducting the total cost
+    userWallet.wallet -= totalCost;
+    await userWallet.save();
+
+    res.status(200).json({ message: 'Wallet balance updated successfully' });
+  } catch (error) {
+    console.error('Error updating wallet balance:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Sell endpoint
+app.post('/sell', async (req, res) => {
+  const {
+    user_email, stock_name, date_sold, price, stock_amount,
+  } = req.body;
+  try {
+    // Add logic to sell the stocks and update the user's wallet balance
+    const userWallet = await UserWallet.findOne({ user_email });
+    if (!userWallet) {
+      return res.status(400).json({ success: false, message: 'User not found!' });
+    }
+
+    // Update the user's wallet balance
+    userWallet.balance += price * stock_amount;
+    await userWallet.save();
+
+    // Update the user_investments collection to reflect the sale
+    await UserInvestment.findOneAndDelete({
+      user_email, stock_name, date_bought, price, stock_amount,
+    });
+
+    // Return success response
+    res.status(200).json({ success: true, message: 'Stocks sold successfully!' });
+  } catch (error) {
+    console.error('Error selling stocks:', error);
+    res.status(500).json({ success: false, message: 'Failed to sell stocks. Please try again later.' });
+  }
 });

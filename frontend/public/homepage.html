@@ -13,6 +13,7 @@
   <div>
     <button onclick="openWallet()">Open Wallet</button>
     <div id="wallet-container" class="hidden">
+      <span id="close-wallet" class="close" onclick="closeWallet()">&times;</span>
       <h2>Wallet</h2>
       <p id="wallet-value">Wallet: $0</p>
       <input type="number" id="transaction-amount" placeholder="Enter amount (max $10,000)">
@@ -56,6 +57,22 @@
     </select>
     <button onclick="handleSelect()">Select</button>
     <div id="chart-container"></div>
+    <div id="buy-sell-buttons">
+      <button id="buy-button" onclick="openBuyModal()">Buy</button>
+      <button id="sell-button" onclick="openSellModal()">Sell</button>
+    </div>
+    <div id="buy-modal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeBuyModal()">&times;</span>
+        <h2>Buy Stocks</h2>
+        <p>Stock Name: <span id="stock-name"></span></p>
+        <p>Stock Owned: <span id="stock-owned"></span></p>
+        <p>Latest Closing Price: <span id="latest-price"></span></p>
+        <p>Number of Stocks to Buy: <input type="number" id="buy-amount" min="1"></p>
+        <p>Total Investment Amount: <span id="total-investment"></span></p>
+        <button onclick="confirmBuy()">Buy</button>
+      </div>
+    </div>
   <script src="../src/homepage.js"></script>
 </body>
 </html>

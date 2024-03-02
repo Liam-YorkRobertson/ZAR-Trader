@@ -7,7 +7,7 @@ const yahoo = new YahooStockAPI();
 async function getHistoricalPrices(symbol) {
   try {
     const today = new Date(); // Get today's date
-    const oneWeekAgo = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 7); // Set the date to one week ago
+    const oneWeekAgo = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 5); // Set the date to one week ago
 
     // Fetch historical prices from Yahoo Finance API for the specified symbol
     const response = await yahoo.getHistoricalPrices({
