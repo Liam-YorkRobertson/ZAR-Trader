@@ -4,75 +4,98 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>ZAR Trader</title>
+  <title>ZAR Trader - Homepage</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../styles/homepage.css">
   <script src="https://cdn.anychart.com/releases/8.10.0/js/anychart-bundle.min.js"></script>
-  <link rel="icon" href="./favicon.ico" type="image/x-icon">
+  <link rel="icon" href="../images/logo/zar_trader_logo_3.png" type="image/x-icon">
 </head>
 <body>
-  <div>
-    <button onclick="openWallet()">Open Wallet</button>
-    <div id="wallet-container" class="hidden">
-      <span id="close-wallet" class="close" onclick="closeWallet()">&times;</span>
-      <h2>Wallet</h2>
-      <p id="wallet-value">Wallet: $0</p>
-      <input type="number" id="transaction-amount" placeholder="Enter amount (max $10,000)">
-      <button onclick="deposit()">Deposit</button>
-      <button onclick="withdraw()">Withdraw</button>
+  <div class="navbar">
+    <div class="navbar-links">
+      <span id="wallet-button" onclick="openWallet()">
+        Wallet: <span id="wallet-value-navbar">$0</span>
+      </span>
+      <span id="sign-out-button">Sign Out</span>
+      <img src="../images/logo/zar_trader_logo_4.png" alt="ZAR Trader Logo" class="logo">
     </div>
   </div>
-  <div id="controls">
-    <label for="stock-select">Select Stock:</label>
-    <select id="stock-dropdown">
-      <option value="MSFT">Microsoft Corporation</option>
-      <option value="AAPL">Apple Inc.</option>
-      <option value="NVDA">NVIDIA Corporation</option>
-      <option value="AMZN">Amazon.com, Inc.</option>
-      <option value="GOOG">Alphabet Inc.</option>
-      <option value="META">Meta Platforms, Inc.</option>
-      <option value="TSLA">Tesla, Inc.</option>
-      <option value="JPM">JPMorgan Chase & Co.</option>
-      <option value="XOM">Exxon Mobil Corporation</option>
-      <option value="JNJ">Johnson & Johnson</option>
-      <option value="PG">The Procter & Gamble Company</option>
-      <option value="HD">The Home Depot, Inc.</option>
-      <option value="AMD">Advanced Micro Devices, Inc.</option>
-      <option value="BAC">Bank of America Corporation</option>
-      <option value="KO">The Coca-Cola Company</option>
-      <option value="NFLX">Netflix, Inc.</option>
-      <option value="MCD">McDonald's Corporation</option>
-      <option value="DIS">The Walt Disney Company</option>
-      <option value="CSCO">Cisco Systems, Inc.</option>
-      <option value="BABA">Alibaba Group Holding Limited</option>
-      <option value="INTC">Intel Corporation</option>
-      <option value="IBM">International Business Machines Corporation</option>
-      <option value="GE">General Electric Company</option>
-      <option value="VZ">Verizon Communications Inc.</option>
-      <option value="WMT">Walmart Inc.</option>
-      <option value="PFE">Pfizer Inc.</option>
-      <option value="BA">The Boeing Company</option>
-      <option value="T">AT&T Inc.</option>
-      <option value="C">Citigroup Inc.</option>
-      <option value="F">Ford Motor Company</option>
-    </select>
-    <button onclick="handleSelect()">Select</button>
-    <div id="chart-container"></div>
-    <div id="buy-sell-buttons">
-      <button id="buy-button" onclick="openBuyModal()">Buy</button>
-      <button id="sell-button" onclick="openSellModal()">Sell</button>
-    </div>
-    <div id="buy-modal" class="modal">
-      <div class="modal-content">
-        <span class="close" onclick="closeBuyModal()">&times;</span>
-        <h2>Buy Stocks</h2>
-        <p>Stock Name: <span id="stock-name"></span></p>
-        <p>Stock Owned: <span id="stock-owned"></span></p>
-        <p>Latest Closing Price: <span id="latest-price"></span></p>
-        <p>Number of Stocks to Buy: <input type="number" id="buy-amount" min="1"></p>
-        <p>Total Investment Amount: <span id="total-investment"></span></p>
-        <button onclick="confirmBuy()">Buy</button>
+  <div class="background-image">
+    <div>
+      <div id="wallet-container" class="hidden">
+        <span id="close-wallet" class="close" onclick="closeWallet()">&times;</span>
+        <h2>Wallet</h2>
+        <p>Wallet: <span id="wallet-value-modal">$0</span></p>
+        <input type="number" id="transaction-amount" placeholder="Enter amount (max $10,000)">
+        <button onclick="deposit()">Deposit</button>
+        <button onclick="withdraw()">Withdraw</button>
       </div>
     </div>
+    <div id="controls">
+      <label for="stock-select">Select Stock:</label>
+      <select id="stock-dropdown">
+        <option value="MSFT">Microsoft Corporation</option>
+        <option value="AAPL">Apple Inc.</option>
+        <option value="NVDA">NVIDIA Corporation</option>
+        <option value="AMZN">Amazon.com, Inc.</option>
+        <option value="GOOG">Alphabet Inc.</option>
+        <option value="META">Meta Platforms, Inc.</option>
+        <option value="TSLA">Tesla, Inc.</option>
+        <option value="JPM">JPMorgan Chase & Co.</option>
+        <option value="XOM">Exxon Mobil Corporation</option>
+        <option value="JNJ">Johnson & Johnson</option>
+        <option value="PG">The Procter & Gamble Company</option>
+        <option value="HD">The Home Depot, Inc.</option>
+        <option value="AMD">Advanced Micro Devices, Inc.</option>
+        <option value="BAC">Bank of America Corporation</option>
+        <option value="KO">The Coca-Cola Company</option>
+        <option value="NFLX">Netflix, Inc.</option>
+        <option value="MCD">McDonald's Corporation</option>
+        <option value="DIS">The Walt Disney Company</option>
+        <option value="CSCO">Cisco Systems, Inc.</option>
+        <option value="BABA">Alibaba Group Holding Limited</option>
+        <option value="INTC">Intel Corporation</option>
+        <option value="IBM">International Business Machines Corporation</option>
+        <option value="GE">General Electric Company</option>
+        <option value="VZ">Verizon Communications Inc.</option>
+        <option value="WMT">Walmart Inc.</option>
+        <option value="PFE">Pfizer Inc.</option>
+        <option value="BA">The Boeing Company</option>
+        <option value="T">AT&T Inc.</option>
+        <option value="C">Citigroup Inc.</option>
+        <option value="F">Ford Motor Company</option>
+      </select>
+      <button onclick="handleSelect()">Select</button>
+    </div>
+      <div id="chart-container"></div>
+      <div id="buy-sell-buttons">
+        <button id="buy-button" onclick="openBuyModal()">Buy</button>
+        <button id="sell-button" onclick="openSellModal()">Sell</button>
+      </div>
+      <div id="buy-modal" class="modal">
+        <div class="modal-content">
+          <span class="close" onclick="closeBuyModal()">&times;</span>
+          <h2>Buy Stocks</h2>
+          <p>Stock Name: <span id="stock-name"></span></p>
+          <p>Stock Owned: <span id="stock-owned"></span></p>
+          <p>Latest Closing Price: <span id="latest-price"></span></p>
+          <p>Number of Stocks to Buy: <input type="number" id="buy-amount" min="1"></p>
+          <p>Total Investment Amount: <span id="total-investment"></span></p>
+          <button onclick="confirmBuy()">Buy</button>
+        </div>
+      </div>
+      <div id="sell-modal" class="modal">
+        <div class="modal-content">
+          <h2>Sell Stocks</h2>
+          <p>You will be redirected to your portfolio page to sell your stock.</p>
+          <button onclick="confirmSell()">Confirm</button>
+          <button onclick="closeSellModal()">Cancel</button>
+        </div>
+      </div>
+  </div>
+  <div id="error-message" class="error-message"></div>
   <script src="../src/homepage.js"></script>
 </body>
 </html>

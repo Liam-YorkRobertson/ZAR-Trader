@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>ZAR Trader - Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles/portfolio.css">
+  <link rel="icon" href="../images/logo/zar_trader_logo_3.png" type="image/x-icon">
+</head>
+<body>
+  <div class="navbar">
+    <div class="navbar-links">
+      <span id="wallet-value"></span>
+      <span id="homepage-button">Homepage</span>
+      <span id="sign-out-button">Sign Out</span>
+      <img src="../images/logo/zar_trader_logo_4.png" alt="ZAR Trader Logo" class="logo">
+    </div>
+  </div>
+  <div class="background-image">
+  </div>
+  <div id="portfolio-container">
+    <h2>Portfolio:</h2>
+    <div id="company-list">
+      <!-- Investments will be here -->
+    </div>
+  </div>
+  <div id="sell-modal" class="modal">
+    <div class="modal-content">
+        <h2>Sell Stocks</h2>
+        <p id="sell-message">Sell <input type="number" id="sell-amount-input" min="1"> stock at $<span id="sell-price"></span> each for $<span id="total-amount"></span>(<span id="profit-amount"></span>)?</p>
+        <button id="confirm-sell-button">Confirm</button>
+        <button onclick="closeSellModal()">Cancel</button>
+    </div>
+  </div>
+  <div id="sale-success-message" class="sale-success-message">Sale successful!</div>
+  <div id="error-message" class="error-message"></div>
+  <script src="../src/portfolio.js"></script>
+</body>
+</html>

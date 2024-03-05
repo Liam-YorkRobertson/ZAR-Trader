@@ -1,0 +1,161 @@
+/* Global Styles */
+body, input, button, select {
+  font-family: "Varela Round", sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+button {
+  margin-right: 10px;
+  padding: 10px 20px;
+  background-color: green;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: rgb(187, 187, 0);
+}
+
+.hidden {
+  display: none;
+}
+
+.navbar {
+  justify-content: space-between;
+  align-items: center;
+  padding: 1px 10px;
+  background-color: rgb(1, 105, 1);
+  border-bottom: 1px solid #ccc;
+}
+
+.logo {
+  max-width: 60px;
+  margin-left: auto;
+}
+
+.navbar-links {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-links span {
+  margin-right: 40px;
+  color: white;
+}
+
+.navbar-links #sign-out-button:hover,
+#homepage-button:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+.background-image::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../images/background/background_4.jpg');
+  background-size: cover;
+  filter: blur(4px);
+  z-index: -1;
+}
+
+h2 {
+  font-size: 40px;
+}
+
+.investment-details div {
+  width: 75vw;
+  margin-top: 5px;
+  padding: 6px;
+  border: 1px solid rgb(129, 184, 129);
+  border-radius: 10px;
+  background-color: #f9f9f9;
+}
+
+.sell-btn {
+  width: 55px;
+  text-align: center;
+  background-color: green;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.sell-btn:hover {
+  background-color: rgb(187, 187, 0);
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+  border-radius: 10px;
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+.profit-green {
+  color: green;
+}
+
+.profit-red {
+  color: red;
+}
+
+.hidden {
+  display: none;
+}
+
+.sale-success-message {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 15px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  z-index: 9999;
+}
+
+.sale-success-message.show {
+  display: block;
+}
+
+#error-message {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 15px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  z-index: 9999;
+}

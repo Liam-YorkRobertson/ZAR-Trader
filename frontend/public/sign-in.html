@@ -1,28 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>My Website</title>
-    <link rel="stylesheet" href="../styles/sign-in.css">
-    <link rel="icon" href="./favicon.ico" type="image/x-icon">
-  </head>
-  <body>
-    <div class="container">
-        <h2>Sign In</h2>
-        <form id="signin-form">
-            <div class="form-group">
-                <label for="usernameOrEmail">Username or Email:</label>
-                <input type="text" id="usernameOrEmail" name="usernameOrEmail" required>
-            </div>
-            <div class="form-group">
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" required>
-            </div>
-            <button type="submit">Sign In</button>
-        </form>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>ZAR Trader - Sign In</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles/sign-in.css">
+  <link rel="icon" href="../images/logo/zar_trader_logo_3.png" type="image/x-icon">
+</head>
+<body>
+  <div class="main-container">
+    <h1>Sign In</h1>
+    <form id="signin-form">
+      <div class="form-group">
+        <label for="usernameOrEmail">Username or Email:</label>
+        <input type="text" id="usernameOrEmail" name="usernameOrEmail" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+      </div>
+      <button type="submit">Sign In</button>
+      <div id="error-message" class="error-message"></div>
+    </form>
+    <div class="login-link">
+      <p>New to ZAR Trader? <a href="sign-up.html">Sign Up</a></p>
     </div>
-    <script src="../src/sign-in.js"></script>
-  </body>
+  </div>
+  <script src="../src/sign-in.js"></script>
+</body>
 </html>

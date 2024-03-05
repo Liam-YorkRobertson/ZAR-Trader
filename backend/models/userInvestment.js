@@ -1,3 +1,5 @@
+// Defines schema and model for user_investments
+
 const mongoose = require('mongoose');
 
 const userInvestmentSchema = new mongoose.Schema({

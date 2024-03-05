@@ -1,17 +1,18 @@
-/* eslint-env browser */
+// Sign-in functionality
 
 document.addEventListener('DOMContentLoaded', () => {
   const signInForm = document.getElementById('signin-form');
+  const errorMessage = document.getElementById('error-message');
+
   signInForm.addEventListener('submit', async (event) => {
     event.preventDefault();
     const formData = new FormData(signInForm);
     const usernameOrEmail = formData.get('usernameOrEmail');
     const password = formData.get('password');
     if (!usernameOrEmail || !password) {
-      alert('Please enter both username/email and password.');
+      displayErrorMessage('Please enter both username/email and password.');
       return;
     }
-
     try {
       const response = await fetch('/signin', {
         method: 'POST',
@@ -23,12 +24,10 @@ document.addEventListener('DOMContentLoaded', () => {
           password,
         }),
       });
-
       if (response.ok) {
         const data = await response.json();
         console.log('Response from server:', data);
         if (data && data.email) {
-          // Save email to cache
           localStorage.setItem('userEmail', data.email);
           console.log('Email saved in localStorage:', data.email);
         }
@@ -37,12 +36,20 @@ document.addEventListener('DOMContentLoaded', () => {
         const data = await response.json();
         console.log('Error response from server:', data);
         if (data && data.error) {
-          alert(data.error);
+          displayErrorMessage(data.error);
         }
       }
     } catch (error) {
       console.error('Error signing in:', error);
-      alert('An error occurred while signing in. Please try again later.');
+      displayErrorMessage('An error occurred while signing in. Please try again later.');
     }
   });
+
+  function displayErrorMessage(message) {
+    errorMessage.textContent = message;
+    errorMessage.style.display = 'block';
+    setTimeout(() => {
+      errorMessage.style.display = 'none';
+    }, 1500);
+  }
 });

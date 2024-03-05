@@ -1,3 +1,5 @@
+// Defines schema and model for user_wallet
+
 const mongoose = require('mongoose');
 
 const userWalletSchema = new mongoose.Schema({
