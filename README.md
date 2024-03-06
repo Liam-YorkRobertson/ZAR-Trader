@@ -41,8 +41,8 @@ Contributions to ZAR Trader are welcome! To contribute:
 ## Related Projects
 Explore these related projects:
 
-- [Stock Analysis Tool](https://github.com/username/stock-analysis-tool) - A tool for analyzing stock market trends and patterns.
-- [Portfolio Tracker](https://github.com/username/portfolio-tracker) - An application for managing and tracking investment portfolios.
+- [Ticker](https://github.com/achannarasappa/ticker) - Terminal stock watcher and stock position tracker.
+- [Open Trading Platform](https://github.com/ettec/open-trading-platform) - An open source highly scaleable platform for building cross asset execution orientated trading applications that can be easily deployed on-prem or in the cloud.
 
 ## Technical Challenges and Solutions
 ### Frontend and Backend Technologies
