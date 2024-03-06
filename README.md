@@ -2,7 +2,7 @@
 ![ZAR Trader Logo](frontend/images/logo/zar_trader_logo_4.png)
 
 ## Introduction
-Welcome to ZAR Trader, a web application designed for stock trading enthusiasts. ZAR Trader provides users with a platform to buy and sell stocks, track their investment portfolios, and stay updated with real-time stock market data. IT does not use real currency. It uses virtual currency.
+Welcome to ZAR Trader, a web application designed for stock trading enthusiasts. ZAR Trader provides users with a platform to buy and sell stocks, track their investment portfolios, and stay updated with real-time stock market data. It does not use real currency. It uses virtual currency.
 
 **Author:** Liam-York Robertson
 
