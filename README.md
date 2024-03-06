@@ -49,7 +49,6 @@ Explore these related projects:
 - **Frontend:** ZAR Trader utilizes HTML, CSS and Javascript for the frontend, providing a dynamic and interactive user interface.
 - **Backend:** Powered by Node.js and Express.js, ZAR Trader's backend handles authentication, data processing, and communication with external APIs.
 - **Real-time Data:** Integrating with financial APIs posed challenges in handling real-time stock market data and ensuring data accuracy.
-- **User Authentication:** Implementing secure user authentication and authorization mechanisms to protect user data and transactions.
 
 ### Struggles and Learning Moments
 Throughout the development of ZAR Trader, several challenges were encountered:
