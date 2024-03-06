@@ -9,9 +9,6 @@ Welcome to ZAR Trader, a web application designed for stock trading enthusiasts.
 ## The Inspiration Behind the Project
 The idea for ZAR Trader stemmed from the desire to create a user-friendly platform for individuals interested in stock trading. Inspired by the complexity of stock market applications and the need for a simpler, more intuitive solution, ZAR Trader aims to provide users with a seamless trading experience to practice investing and get their foot in the door.
 
-## Deployment
-ZAR Trader is currently deployed at
-
 ## Installation
 To run ZAR Trader locally, follow these steps:
 
