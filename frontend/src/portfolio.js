@@ -187,7 +187,7 @@ function updateSellModal(investment, latestClosePrice) {
   const sellAmount = parseInt(sellAmountInput.value);
   const totalAmount = sellAmount * latestClosePrice;
   const profitPercentage = (((latestClosePrice - investment.price) / investment.price) * 100);
-  const profitAmount = (latestClosePrice - investment.price) * sellAmount; // Calculate dollar amount of profit/loss
+  const profitAmount = (latestClosePrice - investment.price) * sellAmount;
   const profitIndicator = profitAmount >= 0 ? '+' : '-';
   const profitPercentageFormatted = Math.abs(profitPercentage).toFixed(2);
   const profitAmountFormatted = Math.abs(profitAmount).toFixed(2);
@@ -201,7 +201,7 @@ function updateSellModal(investment, latestClosePrice) {
   } else {
     profitMessage.style.color = 'black';
   }
-  document.getElementById('total-amount').textContent = totalAmount.toFixed(2); // Round total amount to 2 decimal places
+  document.getElementById('total-amount').textContent = totalAmount.toFixed(2);
 }
 
 // Closes sell modal
@@ -221,7 +221,7 @@ async function confirmSell(investment, latestClosePrice) {
       throw new Error('Invalid stock amount');
     }
     console.log('Request Body:', { stockName, dateBought, stockAmount, totalPrice });
-    const response = await fetch('http://localhost:3000/reduce-stock', {
+    const response = await fetch('/reduce-stock', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -236,7 +236,7 @@ async function confirmSell(investment, latestClosePrice) {
       throw new Error('Failed to reduce stock amount');
     }
     const userEmail = localStorage.getItem('userEmail');
-    const walletResponse = await fetch('http://localhost:3000/increase-wallet', {
+    const walletResponse = await fetch('/increase-wallet', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
