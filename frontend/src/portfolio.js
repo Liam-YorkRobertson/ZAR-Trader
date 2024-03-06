@@ -187,7 +187,7 @@ function updateSellModal(investment, latestClosePrice) {
   const sellAmount = parseInt(sellAmountInput.value);
   const totalAmount = sellAmount * latestClosePrice;
   const profitPercentage = (((latestClosePrice - investment.price) / investment.price) * 100);
-  const profitAmount = profitPercentage * investment.stock_amount * (sellAmount / investment.stock_amount);
+  const profitAmount = (latestClosePrice - investment.price) * sellAmount; // Calculate dollar amount of profit/loss
   const profitIndicator = profitAmount >= 0 ? '+' : '-';
   const profitPercentageFormatted = Math.abs(profitPercentage).toFixed(2);
   const profitAmountFormatted = Math.abs(profitAmount).toFixed(2);
