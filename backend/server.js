@@ -1,11 +1,11 @@
-//
+// server handles requests and responses
 
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const path = require('path');
 const User = require('./models/user');
-const { getHistoricalPrices } = require('./yahooAPI');
+const { getHistoricalPrices } = require('./stockDataApi');
 const UserWallet = require('./models/userWallet');
 const UserInvestment = require('./models/userInvestment');
 
@@ -301,7 +301,7 @@ app.post('/increase-wallet', async (req, res) => {
   try {
     const totalPrice = parseFloat(amount);
     // Find user wallet
-    let userWallet = await UserWallet.findOne({ email: userEmail });
+    const userWallet = await UserWallet.findOne({ email: userEmail });
     if (!userWallet) {
       return res.status(404).json({ error: 'User wallet not found' });
     }
