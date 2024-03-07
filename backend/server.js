@@ -23,23 +23,6 @@ app.use(bodyParser.json());
 // Serve static files
 app.use(express.static(path.join(__dirname, '../frontend/public')));
 
-// Routes for htmls for deployment
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/public', 'landing.html'));
-});
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/public', 'sign-in.html'));
-});
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/public', 'sign-up.html'));
-});
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/public', 'homepage.html'));
-});
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/public', 'portfolio.html'));
-});
-
 // Endpoint for sign up
 app.post('/signup', async (req, res) => {
   const { username, email, password } = req.body;
