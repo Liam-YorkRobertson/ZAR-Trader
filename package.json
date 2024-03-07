@@ -2,7 +2,7 @@
     "name": "zar-trader",
     "version": "1.0.0",
     "description": "ZAR Trader project dependencies",
-    "nodeVersion": "21.6.2",
+    "nodeVersion": "21.x.x",
     "scripts": {
         "start": "node backend/server.js"
     },
@@ -19,7 +19,6 @@
         "express": "^4.18.2",
         "jsonwebtoken": "^8.5.1",
         "mongoose": "^6.12.6",
-        "morgan": "^1.10.0",
-        "npm": "^10.4.0"
+        "morgan": "^1.10.0"
     }
 }
