@@ -21,54 +21,22 @@ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTop
 app.use(bodyParser.json());
 
 // Serve static files
-app.use(express.static(path.join(__dirname, '../frontend')));
+const publicPath = path.join(__dirname, '../frontend/public');
+const stylesPath = path.join(__dirname, '../frontend/styles');
+const srcPath = path.join(__dirname, '../frontend/src');
 
-// Routes for html for deployment (Can comment all of this out on local)
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/public', 'landing.html'));
-});
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/public', 'sign-in.html'));
-});
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/public', 'sign-up.html'));
-});
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/public', 'homepage.html'));
-});
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/public', 'portfolio.html'));
-});
+// Serve static files directly from the public folder
+app.use(express.static(publicPath));
 
-// Routes for css for deployment (Can comment all of this out on local)
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/styles', 'landing.css'));
-});
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/styles', 'sign-in.css'));
-});
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/styles', 'sign-up.css'));
-});
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/styles', 'homepage.css'));
-});
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/styles', 'portfolio.css'));
-});
+// Serve CSS files
+app.use('/styles', express.static(stylesPath));
 
-// Routes for js for deployment (Can comment all of this out on local)
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/src', 'sign-in.js'));
-});
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/src', 'sign-up.js'));
-});
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/src', 'homepage.js'));
-});
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/src', 'portfolio.js'));
+// Serve JavaScript files
+app.use('/src', express.static(srcPath));
+
+// Route to serve HTML files
+app.get('/', (req, res) => {
+  res.sendFile(path.join(publicPath, 'landing.html'));
 });
 
 // Endpoint for sign up
