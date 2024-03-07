@@ -11,7 +11,7 @@ const UserInvestment = require('./models/userInvestment');
 require('dotenv').config();
 
 const app = express();
-const port = process.env.PORT;
+const port = process.env.PORT || 10000;
 
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('MongoDB connected'))
@@ -318,5 +318,5 @@ app.post('/increase-wallet', async (req, res) => {
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
-  console.log('Website redirect: http://localhost:3000/public/landing.html');
+  console.log(`Website redirect: http://localhost:${port}/public/landing.html`);
 });
