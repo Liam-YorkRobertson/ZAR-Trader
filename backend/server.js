@@ -21,23 +21,7 @@ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTop
 app.use(bodyParser.json());
 
 // Serve static files
-const publicPath = path.join(__dirname, '../frontend/public');
-const stylesPath = path.join(__dirname, '../frontend/styles');
-const srcPath = path.join(__dirname, '../frontend/src');
-
-// Serve static files directly from the public folder
-app.use(express.static(publicPath));
-
-// Serve CSS files
-app.use('/styles', express.static(stylesPath));
-
-// Serve JavaScript files
-app.use('/src', express.static(srcPath));
-
-// Route to serve HTML files
-app.get('/', (req, res) => {
-  res.sendFile(path.join(publicPath, 'landing.html'));
-});
+app.use(express.static(path.join(__dirname, '../frontend')));
 
 // Endpoint for sign up
 app.post('/signup', async (req, res) => {
