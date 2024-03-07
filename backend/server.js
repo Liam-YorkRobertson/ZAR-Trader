@@ -21,7 +21,7 @@ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTop
 app.use(bodyParser.json());
 
 // Serve static files
-app.use(express.static(path.join(__dirname, '../frontend')));
+app.use(express.static(path.join(__dirname, '../frontend/public')));
 
 // Routes for htmls for deployment
 app.get('*', (req, res) => {
