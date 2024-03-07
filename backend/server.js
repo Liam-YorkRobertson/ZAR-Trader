@@ -23,6 +23,11 @@ app.use(bodyParser.json());
 // Serve static files
 app.use(express.static(path.join(__dirname, '../frontend')));
 
+// Route
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/public', 'landing.html'));
+});
+
 // Endpoint for sign up
 app.post('/signup', async (req, res) => {
   const { username, email, password } = req.body;
