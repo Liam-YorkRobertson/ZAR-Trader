@@ -16,7 +16,7 @@ To run ZAR Trader locally, follow these steps:
 2. Navigate to the project directory: `cd ZAR-Trader`
 3. Install dependencies: `npm install`
 4. Start the application: `npm start`
-5. Visit `http://localhost:3000` in your web browser to access ZAR Trader.
+5. Visit `[http://localhost:3000/public/landing.html]` in your web browser to access ZAR Trader.
 
 ## Usage
 ZAR Trader allows users to:
